@@ -1,0 +1,386 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --ink: #0b1020;
+  --wisteria: #a855f7;
+  --steel: #cbd5f5;
+  --blood: #dc2626;
+  --ember: #f97316;
+  --mist: #7dd3fc;
+  --pattern-opacity: 0.05;
+  --glow-strength: 0.6;
+  --pattern-texture: url("/patterns/seigaiha.svg");
+  --noise-texture: url("/patterns/noise.svg");
+  --bg-primary: radial-gradient(circle at 20% 20%, rgba(168,85,247,0.18), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(125,211,252,0.2), transparent 50%),
+    linear-gradient(160deg, #0b1020 0%, #0f172a 50%, #020617 100%);
+  --bg-secondary: radial-gradient(circle at 15% 80%, rgba(251,113,133,0.12), transparent 55%),
+    radial-gradient(circle at 75% 85%, rgba(248,113,113,0.12), transparent 50%);
+}
+
+:root[data-theme="corps"] {
+  --ink: #0b1020;
+  --wisteria: #a855f7;
+  --steel: #cbd5f5;
+  --blood: #dc2626;
+  --ember: #f97316;
+  --mist: #7dd3fc;
+  --pattern-opacity: 0.05;
+  --glow-strength: 0.6;
+  --pattern-texture: url("/patterns/seigaiha.svg");
+  --bg-primary: radial-gradient(circle at 20% 20%, rgba(168,85,247,0.2), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(125,211,252,0.18), transparent 50%),
+    linear-gradient(160deg, #0b1020 0%, #0f172a 50%, #020617 100%);
+  --bg-secondary: radial-gradient(circle at 20% 85%, rgba(168,85,247,0.12), transparent 55%),
+    radial-gradient(circle at 75% 80%, rgba(125,211,252,0.12), transparent 50%);
+}
+
+:root[data-theme="upper-moon"] {
+  --ink: #05050a;
+  --wisteria: #7c3aed;
+  --steel: #94a3b8;
+  --blood: #b91c1c;
+  --ember: #f43f5e;
+  --mist: #38bdf8;
+  --pattern-opacity: 0.06;
+  --glow-strength: 0.75;
+  --pattern-texture: url("/patterns/kumiko.svg");
+  --bg-primary: radial-gradient(circle at 20% 20%, rgba(185,28,28,0.22), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(244,63,94,0.2), transparent 50%),
+    linear-gradient(160deg, #05050a 0%, #0b0f1a 50%, #020204 100%);
+  --bg-secondary: radial-gradient(circle at 18% 85%, rgba(185,28,28,0.16), transparent 55%),
+    radial-gradient(circle at 75% 78%, rgba(244,63,94,0.12), transparent 50%);
+}
+
+:root[data-theme="hashira"] {
+  --ink: #0b1220;
+  --wisteria: #c084fc;
+  --steel: #e2e8f0;
+  --blood: #ef4444;
+  --ember: #fb923c;
+  --mist: #bae6fd;
+  --pattern-opacity: 0.04;
+  --glow-strength: 0.55;
+  --pattern-texture: url("/patterns/asanoha.svg");
+  --bg-primary: radial-gradient(circle at 20% 20%, rgba(192,132,252,0.18), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(226,232,240,0.2), transparent 50%),
+    linear-gradient(160deg, #0b1220 0%, #111827 55%, #020617 100%);
+  --bg-secondary: radial-gradient(circle at 18% 85%, rgba(226,232,240,0.16), transparent 55%),
+    radial-gradient(circle at 75% 78%, rgba(192,132,252,0.12), transparent 50%);
+}
+
+body {
+  font-family: var(--font-body);
+  color: #f8fafc;
+  background: transparent;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.08em;
+}
+
+.ds-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--ink);
+}
+
+.ds-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-primary), var(--bg-secondary);
+}
+
+.ds-bg__pattern {
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-texture);
+  background-size: 260px 260px;
+  opacity: var(--pattern-opacity);
+  mix-blend-mode: screen;
+}
+
+.ds-bg__glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--wisteria), transparent 70%);
+  filter: blur(80px);
+  opacity: var(--glow-strength);
+  animation: floatSlow 18s ease-in-out infinite;
+}
+
+.ds-bg__glow--one {
+  top: -120px;
+  left: 10%;
+}
+
+.ds-bg__glow--two {
+  bottom: -180px;
+  right: 8%;
+  animation-duration: 22s;
+  background: radial-gradient(circle, var(--mist), transparent 70%);
+}
+
+.ds-bg__noise {
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-texture);
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+}
+
+.ds-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid color-mix(in srgb, var(--wisteria) 40%, transparent);
+  background: color-mix(in srgb, var(--ink) 72%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.ds-navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-texture);
+  background-size: 320px 320px;
+  opacity: calc(var(--pattern-opacity) * 0.8);
+  pointer-events: none;
+}
+
+.ds-logo {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.38em;
+  color: #f8fafc;
+}
+
+.ds-button {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--steel) 55%, transparent);
+  padding: 0.65rem 1.2rem;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: #f8fafc;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.ds-button::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--wisteria), transparent);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.ds-button::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -120%;
+  width: 80%;
+  height: 180%;
+  background: linear-gradient(120deg, transparent, color-mix(in srgb, var(--ember) 65%, transparent), transparent);
+  transform: translateX(0);
+  transition: transform 0.6s ease;
+}
+
+.ds-button:hover::before {
+  transform: translateX(240%);
+}
+
+.ds-button:hover {
+  border-color: color-mix(in srgb, var(--wisteria) 70%, transparent);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.ds-button[data-active="true"] {
+  border-color: color-mix(in srgb, var(--wisteria) 90%, transparent);
+  background: color-mix(in srgb, var(--wisteria) 20%, transparent);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--wisteria) 40%, transparent);
+}
+
+.ds-button--compact {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.6rem;
+}
+
+.ds-button--ghost {
+  background: color-mix(in srgb, #000 45%, transparent);
+  border-color: color-mix(in srgb, var(--steel) 30%, transparent);
+}
+
+.ds-input {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--steel) 25%, transparent);
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+  border-radius: 8px;
+  padding: 0.9rem 1.2rem;
+  color: #f8fafc;
+  letter-spacing: 0.08em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ds-input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--wisteria) 70%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--wisteria) 30%, transparent);
+}
+
+.ds-card {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--steel) 30%, transparent);
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+  clip-path: polygon(0 0, 96% 0, 100% 8%, 100% 100%, 4% 100%, 0 92%);
+  box-shadow: 0 24px 40px color-mix(in srgb, var(--ink) 80%, transparent);
+  overflow: hidden;
+}
+
+.ds-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed color-mix(in srgb, var(--steel) 40%, transparent);
+  clip-path: polygon(0 0, 96% 0, 100% 8%, 100% 100%, 4% 100%, 0 92%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ds-chip {
+  border: 1px solid color-mix(in srgb, var(--steel) 50%, transparent);
+  background: color-mix(in srgb, var(--ink) 65%, transparent);
+  color: #e2e8f0;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--mist) 35%, transparent);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+}
+
+.hero-breathe {
+  animation: heroBreathe 7s ease-in-out infinite;
+}
+
+@keyframes heroBreathe {
+  0% {
+    transform: translateY(0);
+    text-shadow: 0 0 12px color-mix(in srgb, var(--wisteria) 35%, transparent);
+  }
+  100% {
+    transform: translateY(-6px);
+    text-shadow: 0 0 26px color-mix(in srgb, var(--wisteria) 60%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-bg__glow,
+  .hero-breathe {
+    animation: none;
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.card-tilt {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.bg-blob {
+  filter: blur(80px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+.float-slow {
+  animation: floatSlow 12s ease-in-out infinite;
+}
+
+.float-slower {
+  animation: floatSlow 18s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, -20px, 0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0.3;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes particleDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(0, -40px, 0);
+    opacity: 0.8;
+  }
+}
+
+@keyframes particleFlicker {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
