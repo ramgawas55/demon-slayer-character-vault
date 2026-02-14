@@ -32,7 +32,7 @@ export default function FooterCredit() {
         </div>
         <div className="flex items-center gap-3">
           <a
-            href="https://github.com/ramgawas"
+            href="https://github.com/ramgawas55"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
