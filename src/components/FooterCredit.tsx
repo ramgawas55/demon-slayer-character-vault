@@ -41,7 +41,7 @@ export default function FooterCredit() {
             <GitHubIcon className="h-4 w-4 transition duration-300 group-hover:scale-110" />
           </a>
           <a
-            href="https://www.linkedin.com/in/ram-gawas"
+            href="https://www.linkedin.com/in/ram-gawas-2215a12a7"
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"

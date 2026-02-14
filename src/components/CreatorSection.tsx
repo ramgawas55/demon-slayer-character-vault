@@ -70,7 +70,7 @@ export default function CreatorSection() {
                 View GitHub
               </a>
               <a
-                href="https://www.linkedin.com/in/ram-gawas"
+                href="https://www.linkedin.com/in/ram-gawas-2215a12a7"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-semibold text-white/70 transition hover:border-white/40 hover:bg-white/10 hover:text-white"
