@@ -1,13 +1,15 @@
 # Demon Slayer Character Vault
 
-Production-ready, animated character showcase built with Next.js App Router, TailwindCSS, and Framer Motion.
+An animated, production-ready character showcase for Demon Slayer fans. It’s built with Next.js App Router, TailwindCSS, and Framer Motion, and ships with sensible defaults so it runs cleanly out of the box.
 
-## Setup
+## Quick Start
 
 ```bash
 npm install
 npm run dev
 ```
+
+Open http://localhost:3000 to explore the vault.
 
 ## Build
 
@@ -15,11 +17,11 @@ npm run dev
 npm run build
 ```
 
-## Placeholder Images
+## Images
 
-This project uses a single local placeholder image at `public/characters/placeholder.svg` for all characters so the site runs immediately without external assets.
+The site uses a local placeholder image at `public/characters/placeholder.svg` for every character, so you can launch instantly without external assets.
 
-To replace with your own images:
+To add your own character art:
 
 1. Add image files under `public/characters/{slug}/`:
    - `poster.jpg`
@@ -30,6 +32,8 @@ To replace with your own images:
 3. Keep image sizes consistent (poster ~900x1200, gallery ~800x500) for best layout stability.
 
 ## Admin Uploads
+
+If you want to upload artwork through the admin screen:
 
 1. Set `ADMIN_PASSWORD` and `BLOB_READ_WRITE_TOKEN` in your environment.
 2. Run the app locally or deploy it.

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Character } from "../data/characters"
+import { useTheme } from "../context/ThemeContext"
 import TiltCard from "./TiltCard"
 import GalleryStrip from "./GalleryStrip"
 
@@ -15,6 +16,11 @@ type CharacterDetailProps = {
 
 export default function CharacterDetail({ character, prev, next }: CharacterDetailProps) {
   const [images, setImages] = useState(character.images)
+  const { setTheme } = useTheme()
+
+  useEffect(() => {
+    setTheme(character.uniformTheme)
+  }, [character.uniformTheme, setTheme])
 
   useEffect(() => {
     let active = true
@@ -70,17 +76,13 @@ export default function CharacterDetail({ character, prev, next }: CharacterDeta
           <TiltCard
             image={images.posterUrl}
             title={character.name}
-            glow={{
-              primary: character.theme.primaryGlow,
-              secondary: character.theme.secondaryGlow,
-            }}
             className="mx-auto max-w-sm"
           />
         </div>
       </div>
       <div className="space-y-4">
         <h2 className="text-sm uppercase tracking-[0.35em] text-white/60">Film Wall</h2>
-        <GalleryStrip images={images.galleryUrls} glow={character.theme.primaryGlow} />
+        <GalleryStrip images={images.galleryUrls} />
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         {prev ? (

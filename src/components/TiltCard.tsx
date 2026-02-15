@@ -7,14 +7,10 @@ import { useMemo } from "react"
 type TiltCardProps = {
   image: string
   title: string
-  glow: {
-    primary: string
-    secondary: string
-  }
   className?: string
 }
 
-export default function TiltCard({ image, title, glow, className }: TiltCardProps) {
+export default function TiltCard({ image, title, className }: TiltCardProps) {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
@@ -25,8 +21,9 @@ export default function TiltCard({ image, title, glow, className }: TiltCardProp
   const depth = useTransform(y, [-50, 50], [28, 14])
 
   const shadow = useMemo(
-    () => `0 30px 60px ${glow.primary}30, 0 20px 40px ${glow.secondary}25`,
-    [glow.primary, glow.secondary]
+    () =>
+      "0 30px 60px color-mix(in srgb, var(--glow) 40%, transparent), 0 20px 40px color-mix(in srgb, var(--primary) 30%, transparent)",
+    []
   )
 
   return (
@@ -52,7 +49,8 @@ export default function TiltCard({ image, title, glow, className }: TiltCardProp
       <div
         className="absolute inset-0 rounded-3xl opacity-70"
         style={{
-          background: `linear-gradient(140deg, ${glow.primary}55, transparent, ${glow.secondary}55)`,
+          background:
+            "linear-gradient(140deg, color-mix(in srgb, var(--primary) 55%, transparent), transparent, color-mix(in srgb, var(--secondary) 55%, transparent))",
         }}
       />
       <motion.div className="relative overflow-hidden rounded-2xl" style={{ translateZ: depth }}>

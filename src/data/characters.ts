@@ -6,6 +6,7 @@ export type FormEntry = {
 
 export type ThemeMotion = "calm" | "aggressive" | "chaotic" | "heavy"
 export type ThemeVfx = "flame" | "water" | "mist" | "lightning" | "shadow" | "ice" | "blood"
+export type EnvironmentType = "flame" | "water" | "mist" | "lightning" | "shadow" | "ice" | "blood"
 
 export type CharacterTheme = {
   primaryGlow: string
@@ -13,6 +14,21 @@ export type CharacterTheme = {
   bg: [string, string, string]
   vfx: ThemeVfx
   motion: ThemeMotion
+}
+
+export type UniformTheme = {
+  primary: string
+  secondary: string
+  accent: string
+  background: string
+  glow: string
+}
+
+export type Environment = {
+  type: EnvironmentType
+  primary: string
+  secondary: string
+  glow: string
 }
 
 export type Character = {
@@ -28,6 +44,8 @@ export type Character = {
   powerReveal: string[]
   tags: string[]
   description: string
+  uniformTheme: UniformTheme
+  environment: Environment
   theme: CharacterTheme
   images: {
     posterUrl: string
@@ -122,6 +140,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Water Breathing", "Hinokami"],
     description:
       "A compassionate swordsman who carries his family’s memory into every battle. His resolve burns with a rare mix of mercy and relentless focus.",
+    uniformTheme: {
+      primary: "#1f7a4c",
+      secondary: "#0f172a",
+      accent: "#6ee7b7",
+      background: "#0a0f12",
+      glow: "#22c55e",
+    },
+    environment: {
+      type: "water",
+      primary: "#38bdf8",
+      secondary: "#0ea5e9",
+      glow: "#7dd3fc",
+    },
     theme: { primaryGlow: "#22d3ee", secondaryGlow: "#f97316" },
     images: { posterUrl: "/characters/tanjiro-kamado.jpg", galleryUrls: baseGallery },
   },
@@ -139,6 +170,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Main Cast", "Blood Demon Art", "Sun Resistance"],
     description:
       "A demon who guards her humanity with unbreakable will. Nezuko’s quiet presence hides a fierce protective spirit.",
+    uniformTheme: {
+      primary: "#f472b6",
+      secondary: "#0f172a",
+      accent: "#f9a8d4",
+      background: "#1a0b14",
+      glow: "#fb7185",
+    },
+    environment: {
+      type: "blood",
+      primary: "#ef4444",
+      secondary: "#be123c",
+      glow: "#fb7185",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#f59e0b" },
     images: {
       posterUrl: "/characters/nezuko-kamado.jpg",
@@ -160,6 +204,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Thunder Breathing"],
     description:
       "A nervous swordsman who becomes lightning when the moment calls. Zenitsu’s speed strikes before fear can catch him.",
+    uniformTheme: {
+      primary: "#facc15",
+      secondary: "#854d0e",
+      accent: "#fde68a",
+      background: "#0f0e12",
+      glow: "#f59e0b",
+    },
+    environment: {
+      type: "lightning",
+      primary: "#facc15",
+      secondary: "#38bdf8",
+      glow: "#fde047",
+    },
     theme: { primaryGlow: "#facc15", secondaryGlow: "#38bdf8" },
     images: {
       posterUrl: "/characters/zenitsu-agatsuma.jpg",
@@ -181,6 +238,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Beast Breathing"],
     description:
       "A wild fighter raised in the mountains with razor instincts. Inosuke charges into danger with fearless confidence.",
+    uniformTheme: {
+      primary: "#a3a3a3",
+      secondary: "#7c2d12",
+      accent: "#e5e7eb",
+      background: "#101217",
+      glow: "#94a3b8",
+    },
+    environment: {
+      type: "mist",
+      primary: "#94a3b8",
+      secondary: "#475569",
+      glow: "#cbd5f5",
+    },
     theme: { primaryGlow: "#38bdf8", secondaryGlow: "#a3e635" },
     images: {
       posterUrl: "/characters/inosuke-hashibira.jpg",
@@ -202,6 +272,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Flower Breathing"],
     description:
       "A calm and disciplined swordswoman guided by sharp perception. Kanao’s precision is effortless and measured.",
+    uniformTheme: {
+      primary: "#c084fc",
+      secondary: "#f472b6",
+      accent: "#f9a8d4",
+      background: "#120e1d",
+      glow: "#d8b4fe",
+    },
+    environment: {
+      type: "mist",
+      primary: "#c084fc",
+      secondary: "#f472b6",
+      glow: "#e9d5ff",
+    },
     theme: { primaryGlow: "#fb7185", secondaryGlow: "#f472b6" },
     images: baseImages,
   },
@@ -219,6 +302,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Hybrid Style"],
     description:
       "A fierce fighter who bends the rules to survive. Genya’s strength is earned through pain and persistence.",
+    uniformTheme: {
+      primary: "#64748b",
+      secondary: "#0f172a",
+      accent: "#e2e8f0",
+      background: "#0b0f14",
+      glow: "#94a3b8",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#0f172a",
+      secondary: "#334155",
+      glow: "#64748b",
+    },
     theme: { primaryGlow: "#94a3b8", secondaryGlow: "#f97316" },
     images: baseImages,
   },
@@ -236,6 +332,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Water Breathing"],
     description:
       "A stoic swordsman whose silence speaks volumes. Giyu’s control flows like a quiet river.",
+    uniformTheme: {
+      primary: "#1f7a4c",
+      secondary: "#b91c1c",
+      accent: "#94a3b8",
+      background: "#0b1120",
+      glow: "#34d399",
+    },
+    environment: {
+      type: "water",
+      primary: "#60a5fa",
+      secondary: "#22d3ee",
+      glow: "#7dd3fc",
+    },
     theme: { primaryGlow: "#60a5fa", secondaryGlow: "#22d3ee" },
     images: baseImages,
   },
@@ -253,6 +362,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Insect Breathing"],
     description:
       "A graceful warrior whose smile hides a razor edge. Shinobu’s poison craft is precise and deadly.",
+    uniformTheme: {
+      primary: "#a855f7",
+      secondary: "#22d3ee",
+      accent: "#f9a8d4",
+      background: "#120b18",
+      glow: "#c084fc",
+    },
+    environment: {
+      type: "mist",
+      primary: "#a855f7",
+      secondary: "#22d3ee",
+      glow: "#c084fc",
+    },
     theme: { primaryGlow: "#c084fc", secondaryGlow: "#22d3ee" },
     images: baseImages,
   },
@@ -270,6 +392,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Flame Breathing"],
     description:
       "A blazing pillar of optimism and strength. Rengoku fights with radiant conviction.",
+    uniformTheme: {
+      primary: "#f97316",
+      secondary: "#facc15",
+      accent: "#ef4444",
+      background: "#1a0f0b",
+      glow: "#fb923c",
+    },
+    environment: {
+      type: "flame",
+      primary: "#f97316",
+      secondary: "#ef4444",
+      glow: "#fb923c",
+    },
     theme: { primaryGlow: "#f97316", secondaryGlow: "#facc15" },
     images: baseImages,
   },
@@ -287,6 +422,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Sound Breathing"],
     description:
       "A flamboyant warrior who turns battle into performance. Tengen’s rhythm creates thunderous spectacle.",
+    uniformTheme: {
+      primary: "#38bdf8",
+      secondary: "#a855f7",
+      accent: "#facc15",
+      background: "#0b0f14",
+      glow: "#60a5fa",
+    },
+    environment: {
+      type: "lightning",
+      primary: "#38bdf8",
+      secondary: "#f472b6",
+      glow: "#a5f3fc",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#38bdf8" },
     images: baseImages,
   },
@@ -304,6 +452,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Love Breathing"],
     description:
       "A warm-hearted fighter with unmatched physical strength. Mitsuri’s flexible style is graceful yet devastating.",
+    uniformTheme: {
+      primary: "#f472b6",
+      secondary: "#22c55e",
+      accent: "#fcd34d",
+      background: "#1a0d12",
+      glow: "#f9a8d4",
+    },
+    environment: {
+      type: "flame",
+      primary: "#fb7185",
+      secondary: "#f59e0b",
+      glow: "#fda4af",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#fcd34d" },
     images: baseImages,
   },
@@ -321,6 +482,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Mist Breathing"],
     description:
       "A prodigy whose calm mind hides a sharp edge. Muichiro drifts through combat like mist.",
+    uniformTheme: {
+      primary: "#67e8f9",
+      secondary: "#0f172a",
+      accent: "#c7d2fe",
+      background: "#0b1116",
+      glow: "#38bdf8",
+    },
+    environment: {
+      type: "mist",
+      primary: "#67e8f9",
+      secondary: "#818cf8",
+      glow: "#bae6fd",
+    },
     theme: { primaryGlow: "#a5f3fc", secondaryGlow: "#818cf8" },
     images: baseImages,
   },
@@ -338,6 +512,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Wind Breathing"],
     description:
       "A fierce warrior with a tempestuous spirit. Sanemi’s strikes are wild and unrelenting.",
+    uniformTheme: {
+      primary: "#84cc16",
+      secondary: "#f8fafc",
+      accent: "#4ade80",
+      background: "#0d1117",
+      glow: "#a3e635",
+    },
+    environment: {
+      type: "mist",
+      primary: "#84cc16",
+      secondary: "#22d3ee",
+      glow: "#bef264",
+    },
     theme: { primaryGlow: "#84cc16", secondaryGlow: "#22d3ee" },
     images: baseImages,
   },
@@ -355,6 +542,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Stone Breathing"],
     description:
       "The strongest Hashira with a gentle soul. Gyomei’s presence is a calm, immovable force.",
+    uniformTheme: {
+      primary: "#fbbf24",
+      secondary: "#0f172a",
+      accent: "#a16207",
+      background: "#0b0f14",
+      glow: "#f59e0b",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#1f2937",
+      secondary: "#0f172a",
+      glow: "#94a3b8",
+    },
     theme: { primaryGlow: "#fbbf24", secondaryGlow: "#64748b" },
     images: baseImages,
   },
@@ -372,6 +572,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Hashira", "Serpent Breathing"],
     description:
       "A vigilant swordsman whose precision is serpent-like. Obanai’s blade weaves with unnerving accuracy.",
+    uniformTheme: {
+      primary: "#f8fafc",
+      secondary: "#0f172a",
+      accent: "#22c55e",
+      background: "#0b0f14",
+      glow: "#e2e8f0",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#0f172a",
+      secondary: "#22c55e",
+      glow: "#64748b",
+    },
     theme: { primaryGlow: "#22c55e", secondaryGlow: "#10b981" },
     images: baseImages,
   },
@@ -389,6 +602,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon", "Supreme"],
     description:
       "The origin of all demons, poised and ruthless. Muzan’s power is cold, calculating, and absolute.",
+    uniformTheme: {
+      primary: "#dc2626",
+      secondary: "#0f172a",
+      accent: "#fca5a5",
+      background: "#0b0b12",
+      glow: "#ef4444",
+    },
+    environment: {
+      type: "blood",
+      primary: "#dc2626",
+      secondary: "#7f1d1d",
+      glow: "#f87171",
+    },
     theme: { primaryGlow: "#ef4444", secondaryGlow: "#111827" },
     images: baseImages,
   },
@@ -406,6 +632,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Moon Breathing"],
     description:
       "An ancient swordsman with eyes like a night sky. Kokushibo’s technique is layered and haunting.",
+    uniformTheme: {
+      primary: "#6366f1",
+      secondary: "#0f172a",
+      accent: "#a5b4fc",
+      background: "#0b0b14",
+      glow: "#818cf8",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#1e1b4b",
+      secondary: "#0f172a",
+      glow: "#818cf8",
+    },
     theme: { primaryGlow: "#6366f1", secondaryGlow: "#0ea5e9" },
     images: baseImages,
   },
@@ -423,6 +662,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Ice Art"],
     description:
       "Charming and cold, Doma’s smile hides brutal intent. His ice creations are beautiful and lethal.",
+    uniformTheme: {
+      primary: "#38bdf8",
+      secondary: "#f9a8d4",
+      accent: "#e2e8f0",
+      background: "#0b1116",
+      glow: "#7dd3fc",
+    },
+    environment: {
+      type: "ice",
+      primary: "#7dd3fc",
+      secondary: "#bae6fd",
+      glow: "#e0f2fe",
+    },
     theme: { primaryGlow: "#38bdf8", secondaryGlow: "#a5f3fc" },
     images: baseImages,
   },
@@ -440,6 +692,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Martial Arts"],
     description:
       "A warrior who respects strength above all else. Akaza’s strikes are heavy, rhythmic, and relentless.",
+    uniformTheme: {
+      primary: "#22d3ee",
+      secondary: "#a855f7",
+      accent: "#f472b6",
+      background: "#0b1120",
+      glow: "#38bdf8",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#0f172a",
+      secondary: "#334155",
+      glow: "#7c3aed",
+    },
     theme: { primaryGlow: "#22d3ee", secondaryGlow: "#7c3aed" },
     images: baseImages,
   },
@@ -457,6 +722,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Emotion Clones"],
     description:
       "A timid facade hides a terrifying power. Hantengu fractures into raging emotions that overwhelm.",
+    uniformTheme: {
+      primary: "#b45309",
+      secondary: "#7c3aed",
+      accent: "#f97316",
+      background: "#0f0b12",
+      glow: "#f59e0b",
+    },
+    environment: {
+      type: "lightning",
+      primary: "#facc15",
+      secondary: "#a855f7",
+      glow: "#fde047",
+    },
     theme: { primaryGlow: "#a855f7", secondaryGlow: "#f97316" },
     images: baseImages,
   },
@@ -474,6 +752,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Vase Art"],
     description:
       "A grotesque artist who twists beauty into terror. Gyokko’s movements are slippery and surreal.",
+    uniformTheme: {
+      primary: "#14b8a6",
+      secondary: "#0ea5e9",
+      accent: "#22d3ee",
+      background: "#0b1114",
+      glow: "#2dd4bf",
+    },
+    environment: {
+      type: "water",
+      primary: "#14b8a6",
+      secondary: "#0ea5e9",
+      glow: "#2dd4bf",
+    },
     theme: { primaryGlow: "#14b8a6", secondaryGlow: "#0ea5e9" },
     images: baseImages,
   },
@@ -491,6 +782,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Obi Art"],
     description:
       "A demon who wields beauty like a blade. Daki’s sashes strike with swift, elegant cruelty.",
+    uniformTheme: {
+      primary: "#f472b6",
+      secondary: "#22c55e",
+      accent: "#c084fc",
+      background: "#120b14",
+      glow: "#fb7185",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#7c3aed",
+      secondary: "#f472b6",
+      glow: "#c084fc",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#8b5cf6" },
     images: baseImages,
   },
@@ -508,6 +812,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Blood Weapons"],
     description:
       "A bitter fighter whose blades drip with poison. Gyutaro’s attacks are jagged and relentless.",
+    uniformTheme: {
+      primary: "#22c55e",
+      secondary: "#0f172a",
+      accent: "#84cc16",
+      background: "#0b1110",
+      glow: "#4ade80",
+    },
+    environment: {
+      type: "blood",
+      primary: "#ef4444",
+      secondary: "#7f1d1d",
+      glow: "#f87171",
+    },
     theme: { primaryGlow: "#22c55e", secondaryGlow: "#0f172a" },
     images: baseImages,
   },
@@ -525,6 +842,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Thunder Breathing"],
     description:
       "A fallen swordsman who traded honor for power. Kaigaku’s lightning is sharp and unforgiving.",
+    uniformTheme: {
+      primary: "#eab308",
+      secondary: "#1e293b",
+      accent: "#38bdf8",
+      background: "#0b1016",
+      glow: "#facc15",
+    },
+    environment: {
+      type: "lightning",
+      primary: "#facc15",
+      secondary: "#0ea5e9",
+      glow: "#fde047",
+    },
     theme: { primaryGlow: "#eab308", secondaryGlow: "#0ea5e9" },
     images: baseImages,
   },
@@ -542,6 +872,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Upper Moon", "Biwa Art"],
     description:
       "A silent demon who controls space with a single chord. Nakime’s biwa bends the battlefield.",
+    uniformTheme: {
+      primary: "#6366f1",
+      secondary: "#0f172a",
+      accent: "#8b5cf6",
+      background: "#0b0f14",
+      glow: "#818cf8",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#6366f1",
+      secondary: "#0f172a",
+      glow: "#818cf8",
+    },
     theme: { primaryGlow: "#6366f1", secondaryGlow: "#0f172a" },
     images: baseImages,
   },
@@ -559,6 +902,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Lower Moon", "Thread Art"],
     description:
       "A demon who seeks family through control. Rui’s threads cut with terrifying precision.",
+    uniformTheme: {
+      primary: "#e2e8f0",
+      secondary: "#ef4444",
+      accent: "#7dd3fc",
+      background: "#0b0f14",
+      glow: "#fca5a5",
+    },
+    environment: {
+      type: "blood",
+      primary: "#ef4444",
+      secondary: "#64748b",
+      glow: "#fca5a5",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#60a5fa" },
     images: baseImages,
   },
@@ -576,6 +932,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Lower Moon", "Dream Art"],
     description:
       "A demon who feeds on nightmares and control. Enmu thrives in the space between sleep and fear.",
+    uniformTheme: {
+      primary: "#8b5cf6",
+      secondary: "#334155",
+      accent: "#f472b6",
+      background: "#0b0f14",
+      glow: "#a78bfa",
+    },
+    environment: {
+      type: "mist",
+      primary: "#8b5cf6",
+      secondary: "#334155",
+      glow: "#c4b5fd",
+    },
     theme: { primaryGlow: "#f97316", secondaryGlow: "#334155" },
     images: baseImages,
   },
@@ -592,6 +961,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon", "Temari"],
     description:
       "A demon who attacks with relentless, spinning force. Susamaru’s strikes are playful but deadly.",
+    uniformTheme: {
+      primary: "#f472b6",
+      secondary: "#a855f7",
+      accent: "#fcd34d",
+      background: "#0f0b14",
+      glow: "#fb7185",
+    },
+    environment: {
+      type: "flame",
+      primary: "#f97316",
+      secondary: "#f472b6",
+      glow: "#fdba74",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#a855f7" },
     images: baseImages,
   },
@@ -608,6 +990,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon", "Vector Art"],
     description:
       "A demon who manipulates direction with a single glance. Yahaba’s attacks feel unavoidable.",
+    uniformTheme: {
+      primary: "#22d3ee",
+      secondary: "#0f172a",
+      accent: "#34d399",
+      background: "#0b0f14",
+      glow: "#67e8f9",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#0f172a",
+      secondary: "#22d3ee",
+      glow: "#64748b",
+    },
     theme: { primaryGlow: "#22d3ee", secondaryGlow: "#0f172a" },
     images: baseImages,
   },
@@ -625,6 +1020,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Mentor"],
     description:
       "A fierce yet kind swordsman who shaped Tanjiro’s resolve. Sabito’s spirit lingers in every lesson.",
+    uniformTheme: {
+      primary: "#ef4444",
+      secondary: "#38bdf8",
+      accent: "#fda4af",
+      background: "#0b0f14",
+      glow: "#fb7185",
+    },
+    environment: {
+      type: "water",
+      primary: "#38bdf8",
+      secondary: "#ef4444",
+      glow: "#7dd3fc",
+    },
     theme: { primaryGlow: "#38bdf8", secondaryGlow: "#64748b" },
     images: baseImages,
   },
@@ -641,6 +1049,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps", "Mentor"],
     description:
       "A gentle guide whose insights are sharp and clear. Makomo brings calm and clarity to the harsh training.",
+    uniformTheme: {
+      primary: "#fda4af",
+      secondary: "#60a5fa",
+      accent: "#fbcfe8",
+      background: "#0b0f14",
+      glow: "#f472b6",
+    },
+    environment: {
+      type: "water",
+      primary: "#60a5fa",
+      secondary: "#fda4af",
+      glow: "#93c5fd",
+    },
     theme: { primaryGlow: "#fda4af", secondaryGlow: "#60a5fa" },
     images: baseImages,
   },
@@ -657,6 +1078,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Corps Support", "Butterfly Estate"],
     description:
       "A strict caretaker who keeps the Corps grounded. Aoi’s discipline protects those who need recovery.",
+    uniformTheme: {
+      primary: "#60a5fa",
+      secondary: "#e2e8f0",
+      accent: "#93c5fd",
+      background: "#0b0f14",
+      glow: "#7dd3fc",
+    },
+    environment: {
+      type: "mist",
+      primary: "#60a5fa",
+      secondary: "#e2e8f0",
+      glow: "#bfdbfe",
+    },
     theme: { primaryGlow: "#60a5fa", secondaryGlow: "#f472b6" },
     images: baseImages,
   },
@@ -673,6 +1107,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Slayer Corps"],
     description:
       "A dependable slayer who survives through grit and focus. Murata’s perseverance keeps him moving forward.",
+    uniformTheme: {
+      primary: "#94a3b8",
+      secondary: "#0f172a",
+      accent: "#60a5fa",
+      background: "#0b0f14",
+      glow: "#94a3b8",
+    },
+    environment: {
+      type: "water",
+      primary: "#38bdf8",
+      secondary: "#94a3b8",
+      glow: "#7dd3fc",
+    },
     theme: { primaryGlow: "#94a3b8", secondaryGlow: "#38bdf8" },
     images: baseImages,
   },
@@ -689,6 +1136,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Corps Leader", "Strategist"],
     description:
       "The gentle leader whose vision guides the Corps. Kagaya’s calm words carry immense strength.",
+    uniformTheme: {
+      primary: "#e2e8f0",
+      secondary: "#94a3b8",
+      accent: "#c4b5fd",
+      background: "#0b0f14",
+      glow: "#e2e8f0",
+    },
+    environment: {
+      type: "mist",
+      primary: "#cbd5f5",
+      secondary: "#e2e8f0",
+      glow: "#e2e8f0",
+    },
     theme: { primaryGlow: "#e2e8f0", secondaryGlow: "#94a3b8" },
     images: baseImages,
   },
@@ -705,6 +1165,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Corps Support"],
     description:
       "A composed presence who steadies the Corps. Amane’s clarity keeps the mission focused.",
+    uniformTheme: {
+      primary: "#f9a8d4",
+      secondary: "#cbd5f5",
+      accent: "#fbcfe8",
+      background: "#0b0f14",
+      glow: "#fda4af",
+    },
+    environment: {
+      type: "mist",
+      primary: "#f9a8d4",
+      secondary: "#cbd5f5",
+      glow: "#fbcfe8",
+    },
     theme: { primaryGlow: "#f9a8d4", secondaryGlow: "#cbd5f5" },
     images: baseImages,
   },
@@ -722,6 +1195,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Ally", "Medicine"],
     description:
       "A demon who turned against Muzan through science and compassion. Tamayo’s knowledge is vast.",
+    uniformTheme: {
+      primary: "#f472b6",
+      secondary: "#60a5fa",
+      accent: "#f9a8d4",
+      background: "#0b0f14",
+      glow: "#fb7185",
+    },
+    environment: {
+      type: "mist",
+      primary: "#f472b6",
+      secondary: "#60a5fa",
+      glow: "#f9a8d4",
+    },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#60a5fa" },
     images: baseImages,
   },
@@ -739,6 +1225,19 @@ const rawCharacters: RawCharacter[] = [
     tags: ["Demon Ally", "Illusion Art"],
     description:
       "A loyal guardian with sharp senses and fierce devotion. Yushiro’s art bends perception.",
+    uniformTheme: {
+      primary: "#22c55e",
+      secondary: "#1f2937",
+      accent: "#a3e635",
+      background: "#0b0f14",
+      glow: "#4ade80",
+    },
+    environment: {
+      type: "shadow",
+      primary: "#22c55e",
+      secondary: "#0f172a",
+      glow: "#4ade80",
+    },
     theme: { primaryGlow: "#22c55e", secondaryGlow: "#0ea5e9" },
     images: baseImages,
   },

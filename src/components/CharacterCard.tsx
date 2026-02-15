@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState, type CSSProperties } from "react"
 import { Character, type CharacterTheme } from "../data/characters"
+import { useTheme } from "../context/ThemeContext"
 
 type CharacterCardProps = {
   character: Character
@@ -142,6 +143,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
   const [expandedForm, setExpandedForm] = useState<number | null>(0)
   const [isTouch, setIsTouch] = useState(false)
   const reduceMotion = useReducedMotion()
+  const { setTheme } = useTheme()
 
   useEffect(() => {
     const matcher = window.matchMedia("(hover: none)")
@@ -195,6 +197,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         transition: reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 220, damping: 18 },
       }}
       className="ds-card group relative"
+      data-active={showReveal ? "true" : "false"}
       style={baseThemeVars as CSSProperties}
       animate={{
         ...animateVars,
@@ -219,6 +222,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         href={`/characters/${character.slug}`}
         className="block h-full"
         onClick={(event) => {
+          setTheme(character.uniformTheme)
           if (isTouch && !showReveal) {
             event.preventDefault()
             setShowReveal(true)

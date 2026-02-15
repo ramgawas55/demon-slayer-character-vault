@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import BackgroundFX from "../../../components/BackgroundFX"
 import CharacterDetail from "../../../components/CharacterDetail"
+import EnvironmentEngine from "../../../components/EnvironmentEngine"
 import { characters } from "../../../data/characters"
 
 type CharacterPageProps = {
@@ -38,10 +38,7 @@ export default function CharacterPage({ params }: CharacterPageProps) {
 
   return (
     <div className="relative min-h-screen">
-      <BackgroundFX
-        primary={character.theme.primaryGlow}
-        secondary={character.theme.secondaryGlow}
-      />
+      <EnvironmentEngine environment={character.environment} />
       <CharacterDetail character={character} prev={prev} next={next} />
     </div>
   )
