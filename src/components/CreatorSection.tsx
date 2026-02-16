@@ -11,33 +11,15 @@ export default function CreatorSection() {
     : {
         initial: { opacity: 0, y: 24 },
         whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.6, ease: "easeOut" },
+        transition: { duration: 0.45, ease: "easeOut" },
         viewport: { once: true, amount: 0.35 },
       }
 
   return (
-    <section className="relative mx-auto w-full max-w-6xl px-6 pb-16">
+    <section className="relative mx-auto w-full max-w-7xl px-6 pb-20">
       <motion.div {...revealProps} className="space-y-6">
         <div className="text-xs uppercase tracking-[0.4em] text-white/60">The Creator</div>
-        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-[#0b0b14]/80 p-6 shadow-[0_24px_60px_rgba(4,4,10,0.7)] sm:p-8">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-50"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, rgba(255,255,255,0.06), transparent 60%), repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 7px), repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 9px)",
-            }}
-          />
-          {!shouldReduceMotion && (
-            <motion.div
-              className="pointer-events-none absolute -inset-16 opacity-40"
-              animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.04, 1] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                background:
-                  "radial-gradient(circle at 20% 20%, rgba(236,72,153,0.25), transparent 55%), radial-gradient(circle at 80% 70%, rgba(124,58,237,0.25), transparent 60%)",
-              }}
-            />
-          )}
+        <div className="glass-panel relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-depth-2 sm:p-8">
           <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-5">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-transparent">

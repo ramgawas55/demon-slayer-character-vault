@@ -1,30 +1,15 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
-
 export default function FooterCredit() {
-  const shouldReduceMotion = useReducedMotion()
-
   return (
     <footer className="border-t border-white/10 py-6">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2 text-sm text-white/60">
           <div className="flex flex-wrap items-center gap-2">
             <span>Forged and Engineered by</span>
-            <motion.span
-              className="group relative inline-flex items-center font-semibold text-white/80"
-              whileHover={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      textShadow: "0 0 12px rgba(236,72,153,0.65)",
-                    }
-              }
-              transition={{ duration: shouldReduceMotion ? 0 : 0.35 }}
-            >
-              <span className="pointer-events-none absolute inset-y-0 -left-6 w-10 translate-x-0 bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-0 transition duration-500 group-hover:translate-x-24 group-hover:opacity-100" />
+            <span className="inline-flex items-center font-semibold text-white/80">
               Ram Gawas
-            </motion.span>
+            </span>
           </div>
           <div className="text-xs uppercase tracking-[0.35em] text-white/40">
             DevOps • Cloud Engineer • Creative Systems

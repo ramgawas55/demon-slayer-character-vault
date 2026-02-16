@@ -31,6 +31,26 @@ To add your own character art:
    - `/characters/tanjiro-kamado/g1.jpg`
 3. Keep image sizes consistent (poster ~900x1200, gallery ~800x500) for best layout stability.
 
+## Performance Notes
+
+- Keep animation layers to a minimum. The global background plus one interactive layer is the intended ceiling.
+- Prefer reduced motion fallbacks for page transitions and hover effects to stay smooth on low-power devices.
+- Use WebP whenever possible and avoid oversized assets to prevent decode and layout jank.
+
+## Image Optimization Workflow
+
+1. Export posters at ~900x1200 and galleries at ~800x500.
+2. Convert to WebP (quality 90–95) and place in `public/characters/{slug}/`.
+3. Update the character image paths in `src/data/characters.ts`.
+4. Rebuild to validate `next/image` sizing and caching.
+
+## Add Character Data Safely
+
+1. Duplicate an existing entry in `src/data/characters.ts` and update the slug, name, and metadata.
+2. Keep the slug unique and consistent with the image folder name.
+3. Ensure required fields are present: `faction`, `rank`, `technique`, `power`, `theme`, `uniformTheme`, `environment`, and `images`.
+4. Confirm the new character renders in the grid and detail page without console errors.
+
 ## Admin Uploads
 
 If you want to upload artwork through the admin screen:

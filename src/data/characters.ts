@@ -1,7 +1,7 @@
-export type FormEntry = {
+export type TechniqueForm = {
   title: string
   description: string
-  difficulty?: "basic" | "advanced" | "master"
+  bestUse?: string
 }
 
 export type ThemeMotion = "calm" | "aggressive" | "chaotic" | "heavy"
@@ -34,15 +34,30 @@ export type Environment = {
 export type Character = {
   slug: string
   name: string
+  fullName: string
+  aliases: string[]
   faction: "corps" | "hashira" | "demon"
-  rank: "Hashira" | "Corps" | "Demon" | `Upper Moon ${1 | 2 | 3 | 4 | 5 | 6}` | `Lower Moon ${1 | 2 | 3 | 4 | 5 | 6}`
-  power: {
-    breathingStyle?: string
-    bloodDemonArt?: string
-  }
-  forms: FormEntry[]
-  powerReveal: string[]
+  rank: string
+  status?: "alive" | "deceased" | "unknown"
+  affiliation: string[]
+  technique:
+    | {
+        type: "breathing"
+        name: string
+        nichirinColor?: string
+        forms: TechniqueForm[]
+      }
+    | {
+        type: "blood_demon_art"
+        name: string
+        abilities: string[]
+        weaknesses?: string[]
+      }
   tags: string[]
+  threatLevel?: 1 | 2 | 3 | 4 | 5
+  firstAppearance?: string
+  quote?: string
+  trivia?: string[]
   description: string
   uniformTheme: UniformTheme
   environment: Environment
@@ -56,7 +71,46 @@ export type Character = {
 type RawTheme = Pick<CharacterTheme, "primaryGlow" | "secondaryGlow"> &
   Partial<Pick<CharacterTheme, "bg" | "vfx" | "motion">>
 
-type RawCharacter = Omit<Character, "theme"> & {
+type RawFormEntry = {
+  title: string
+  description: string
+  difficulty?: "basic" | "advanced" | "master"
+}
+
+type RawPower = {
+  breathingStyle?: string
+  bloodDemonArt?: string
+}
+
+type CharacterMeta = {
+  fullName: string
+  aliases: string[]
+  status: "alive" | "deceased" | "unknown"
+  affiliation: string[]
+  threatLevel: 1 | 2 | 3 | 4 | 5
+  firstAppearance: string
+  quote: string
+  trivia: string[]
+  nichirinColor?: string
+  weaknesses?: string[]
+}
+
+type RawCharacter = Omit<
+  Character,
+  | "fullName"
+  | "aliases"
+  | "status"
+  | "affiliation"
+  | "technique"
+  | "threatLevel"
+  | "firstAppearance"
+  | "quote"
+  | "trivia"
+  | "theme"
+> & {
+  power: RawPower
+  forms: RawFormEntry[]
+  powerReveal: string[]
   theme: RawTheme
 }
 
@@ -122,6 +176,440 @@ const baseGallery = ["/characters/placeholder.svg", "/characters/placeholder.svg
 const baseImages = {
   posterUrl: "/characters/placeholder.svg",
   galleryUrls: baseGallery,
+}
+
+const characterMeta: Record<string, CharacterMeta> = {
+  "tanjiro-kamado": {
+    fullName: "Tanjiro Kamado",
+    aliases: ["Black Nichirin"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 1",
+    quote: "I will keep moving forward, no matter what.",
+    trivia: ["Has an acute sense of smell.", "Uses Hinokami Kagura."],
+    nichirinColor: "#111827",
+  },
+  "nezuko-kamado": {
+    fullName: "Nezuko Kamado",
+    aliases: ["Boxed Demon"],
+    status: "alive",
+    affiliation: ["Kamado Family", "Allied Demon"],
+    threatLevel: 4,
+    firstAppearance: "Episode 1",
+    quote: "I will protect humans.",
+    trivia: ["Shows unusual resistance to sunlight.", "Uses Exploding Blood."],
+  },
+  "zenitsu-agatsuma": {
+    fullName: "Zenitsu Agatsuma",
+    aliases: ["Thunderclap"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 11",
+    quote: "I can do this. I know I can.",
+    trivia: ["Mastered Thunder Breathing First Form.", "Fights best when asleep."],
+    nichirinColor: "#facc15",
+  },
+  "inosuke-hashibira": {
+    fullName: "Inosuke Hashibira",
+    aliases: ["King of the Mountains"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 11",
+    quote: "I'm the strongest!",
+    trivia: ["Wears a boar mask.", "Invented Beast Breathing."],
+  },
+  "kanao-tsuyuri": {
+    fullName: "Kanao Tsuyuri",
+    aliases: ["Tsuguko"],
+    status: "alive",
+    affiliation: ["Butterfly Mansion", "Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 4",
+    quote: "I will decide for myself.",
+    trivia: ["Uses Flower Breathing.", "Has exceptional eyesight."],
+  },
+  "genya-shinazugawa": {
+    fullName: "Genya Shinazugawa",
+    aliases: ["Shotgun Slayer"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 4",
+    quote: "I won't lose again.",
+    trivia: ["Uses a Nichirin shotgun.", "Can temporarily gain demon traits."],
+  },
+  "giyu-tomioka": {
+    fullName: "Giyu Tomioka",
+    aliases: ["Water Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Episode 1",
+    quote: "Don't die.",
+    trivia: ["Created Eleventh Form: Dead Calm.", "Reserved but deeply principled."],
+    nichirinColor: "#60a5fa",
+  },
+  "shinobu-kocho": {
+    fullName: "Shinobu Kocho",
+    aliases: ["Insect Hashira"],
+    status: "deceased",
+    affiliation: ["Demon Slayer Corps", "Hashira", "Butterfly Mansion"],
+    threatLevel: 4,
+    firstAppearance: "Episode 16",
+    quote: "If you can, then don't be a demon.",
+    trivia: ["Uses wisteria poison.", "Specializes in thrust attacks."],
+    nichirinColor: "#c084fc",
+  },
+  "kyojuro-rengoku": {
+    fullName: "Kyojuro Rengoku",
+    aliases: ["Flame Hashira"],
+    status: "deceased",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Mugen Train",
+    quote: "Set your heart ablaze.",
+    trivia: ["Mentored Tanjiro.", "Known for radiant optimism."],
+    nichirinColor: "#f97316",
+  },
+  "tengen-uzui": {
+    fullName: "Tengen Uzui",
+    aliases: ["Sound Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Entertainment District",
+    quote: "Be flashy.",
+    trivia: ["Former shinobi.", "Uses dual Nichirin cleavers."],
+  },
+  "mitsuri-kanroji": {
+    fullName: "Mitsuri Kanroji",
+    aliases: ["Love Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Swordsmith Village",
+    quote: "Everyone deserves happiness.",
+    trivia: ["Possesses extraordinary strength.", "Uses a flexible Nichirin blade."],
+  },
+  "muichiro-tokito": {
+    fullName: "Muichiro Tokito",
+    aliases: ["Mist Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Swordsmith Village",
+    quote: "I just remembered.",
+    trivia: ["A prodigy at a young age.", "Fights with detached calm."],
+  },
+  "sanemi-shinazugawa": {
+    fullName: "Sanemi Shinazugawa",
+    aliases: ["Wind Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Episode 22",
+    quote: "Don't underestimate me.",
+    trivia: ["Rare blood that attracts demons.", "Aggressive fighting style."],
+  },
+  "gyomei-himejima": {
+    fullName: "Gyomei Himejima",
+    aliases: ["Stone Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 5,
+    firstAppearance: "Episode 22",
+    quote: "Namu Amida Butsu.",
+    trivia: ["Blind but senses vibrations.", "Widely regarded as the strongest Hashira."],
+  },
+  "obanai-iguro": {
+    fullName: "Obanai Iguro",
+    aliases: ["Serpent Hashira"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps", "Hashira"],
+    threatLevel: 4,
+    firstAppearance: "Episode 22",
+    quote: "I'll protect her.",
+    trivia: ["Fights alongside Kaburamaru.", "Precision-focused style."],
+  },
+  "muzan-kibutsuji": {
+    fullName: "Muzan Kibutsuji",
+    aliases: ["Demon King"],
+    status: "unknown",
+    affiliation: ["Demons", "Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Episode 7",
+    quote: "Perfection is my nature.",
+    trivia: ["Origin of all demons.", "Can alter his appearance at will."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  kokushibo: {
+    fullName: "Kokushibo",
+    aliases: ["Upper Moon One"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Entertainment District",
+    quote: "Moonlit blades reveal all.",
+    trivia: ["Six-eyed swordsman.", "Wields Moon Breathing."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  doma: {
+    fullName: "Doma",
+    aliases: ["Upper Moon Two"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Entertainment District",
+    quote: "Isn't that lovely?",
+    trivia: ["Leads a cult.", "Uses devastating ice techniques."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  akaza: {
+    fullName: "Akaza",
+    aliases: ["Upper Moon Three"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Mugen Train",
+    quote: "Become stronger.",
+    trivia: ["Respects powerful opponents.", "Uses Destructive Death martial arts."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  hantengu: {
+    fullName: "Hantengu",
+    aliases: ["Upper Moon Four"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Swordsmith Village",
+    quote: "Please spare me!",
+    trivia: ["Splits into emotion clones.", "True body hides behind fear."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  gyokko: {
+    fullName: "Gyokko",
+    aliases: ["Upper Moon Five"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Swordsmith Village",
+    quote: "My art is eternal.",
+    trivia: ["Travels through vases.", "Obsessed with grotesque beauty."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  daki: {
+    fullName: "Daki",
+    aliases: ["Upper Moon Six"],
+    status: "deceased",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 4,
+    firstAppearance: "Entertainment District",
+    quote: "I'm beautiful, aren't I?",
+    trivia: ["Shares rank with Gyutaro.", "Uses living obi sashes."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  gyutaro: {
+    fullName: "Gyutaro",
+    aliases: ["Upper Moon Six"],
+    status: "deceased",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Entertainment District",
+    quote: "I was born to hate.",
+    trivia: ["Fights with poisoned blood sickles.", "Linked life with Daki."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  kaigaku: {
+    fullName: "Kaigaku",
+    aliases: ["Upper Moon Six"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 4,
+    firstAppearance: "Swordsmith Village",
+    quote: "Power is everything.",
+    trivia: ["Former Thunder Breathing trainee.", "Wields corrupted lightning."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  nakime: {
+    fullName: "Nakime",
+    aliases: ["Infinity Castle Keeper"],
+    status: "unknown",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 5,
+    firstAppearance: "Entertainment District",
+    quote: "The castle moves at my will.",
+    trivia: ["Controls space with her biwa.", "Keeps demons hidden."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  rui: {
+    fullName: "Rui",
+    aliases: ["Lower Moon Five"],
+    status: "deceased",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 4,
+    firstAppearance: "Episode 15",
+    quote: "I wanted a family.",
+    trivia: ["Creates razor thread webs.", "Obsessed with a perfect family."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  enmu: {
+    fullName: "Enmu",
+    aliases: ["Lower Moon One"],
+    status: "deceased",
+    affiliation: ["Twelve Kizuki"],
+    threatLevel: 4,
+    firstAppearance: "Mugen Train",
+    quote: "Sleep and dream forever.",
+    trivia: ["Merges with the Mugen Train.", "Uses dream manipulation."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  susamaru: {
+    fullName: "Susamaru",
+    aliases: ["Temari Demon"],
+    status: "deceased",
+    affiliation: ["Demons"],
+    threatLevel: 3,
+    firstAppearance: "Episode 10",
+    quote: "Let's play.",
+    trivia: ["Throws temari with tremendous force.", "Works with Yahaba."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  yahaba: {
+    fullName: "Yahaba",
+    aliases: ["Arrow Demon"],
+    status: "deceased",
+    affiliation: ["Demons"],
+    threatLevel: 3,
+    firstAppearance: "Episode 10",
+    quote: "Your movements are mine.",
+    trivia: ["Uses vector arrows to redirect motion.", "Fights tactically at range."],
+    weaknesses: ["Sunlight", "Nichirin blades"],
+  },
+  sabito: {
+    fullName: "Sabito",
+    aliases: ["Fox Mask Mentor"],
+    status: "deceased",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 3",
+    quote: "Protect the weak.",
+    trivia: ["Trained Tanjiro on Mt. Sagiri.", "Fell during Final Selection."],
+  },
+  makomo: {
+    fullName: "Makomo",
+    aliases: ["Fox Mask Mentor"],
+    status: "deceased",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 2,
+    firstAppearance: "Episode 3",
+    quote: "Focus your breath.",
+    trivia: ["Guided Tanjiro's sword practice.", "Known for calm discipline."],
+  },
+  "aoi-kanzaki": {
+    fullName: "Aoi Kanzaki",
+    aliases: ["Butterfly Mansion Attendant"],
+    status: "alive",
+    affiliation: ["Butterfly Mansion", "Demon Slayer Corps"],
+    threatLevel: 1,
+    firstAppearance: "Episode 4",
+    quote: "Follow the rules.",
+    trivia: ["Provides medical support.", "Keeps slayers in line."],
+  },
+  murata: {
+    fullName: "Murata",
+    aliases: ["Support Slayer"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 2,
+    firstAppearance: "Episode 16",
+    quote: "Let's survive this.",
+    trivia: ["Known for steady reliability.", "Often supports larger teams."],
+  },
+  "kagaya-ubuyashiki": {
+    fullName: "Kagaya Ubuyashiki",
+    aliases: ["Oyakata-sama"],
+    status: "deceased",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 3,
+    firstAppearance: "Episode 22",
+    quote: "The Corps lives on.",
+    trivia: ["Leader of the Demon Slayer Corps.", "Beloved by all Hashira."],
+  },
+  "amane-ubuyashiki": {
+    fullName: "Amane Ubuyashiki",
+    aliases: ["Corps Steward"],
+    status: "alive",
+    affiliation: ["Demon Slayer Corps"],
+    threatLevel: 2,
+    firstAppearance: "Episode 22",
+    quote: "Stay composed.",
+    trivia: ["Manages Corps operations.", "Maintains discipline and focus."],
+  },
+  tamayo: {
+    fullName: "Tamayo",
+    aliases: ["Demon Doctor"],
+    status: "deceased",
+    affiliation: ["Allied Demon"],
+    threatLevel: 3,
+    firstAppearance: "Episode 8",
+    quote: "I will atone for my sins.",
+    trivia: ["Created anti-demon medicine.", "Opposes Muzan directly."],
+  },
+  yushiro: {
+    fullName: "Yushiro",
+    aliases: ["Tamayo's Guardian"],
+    status: "alive",
+    affiliation: ["Allied Demon"],
+    threatLevel: 3,
+    firstAppearance: "Episode 8",
+    quote: "Tamayo-sama is everything.",
+    trivia: ["Uses vision tampering.", "Fiercely loyal to Tamayo."],
+  },
+}
+
+const defaultAffiliation = (character: RawCharacter): string[] => {
+  if (character.faction === "hashira") {
+    return ["Demon Slayer Corps", "Hashira"]
+  }
+  if (character.faction === "corps") {
+    return ["Demon Slayer Corps"]
+  }
+  if (character.rank.startsWith("Upper Moon") || character.rank.startsWith("Lower Moon")) {
+    return ["Twelve Kizuki"]
+  }
+  return ["Demons"]
+}
+
+const defaultThreatLevel = (character: RawCharacter): 1 | 2 | 3 | 4 | 5 => {
+  if (character.rank.startsWith("Upper Moon")) {
+    return 5
+  }
+  if (character.rank.startsWith("Lower Moon")) {
+    return 4
+  }
+  if (character.rank === "Hashira") {
+    return 4
+  }
+  if (character.rank === "Corps") {
+    return 2
+  }
+  return 3
+}
+
+const bestUseFromDifficulty = (difficulty?: RawFormEntry["difficulty"]) => {
+  if (difficulty === "basic") {
+    return "Foundational opener"
+  }
+  if (difficulty === "advanced") {
+    return "Mid-range pressure"
+  }
+  if (difficulty === "master") {
+    return "Decisive finisher"
+  }
+  return undefined
 }
 
 const rawCharacters: RawCharacter[] = [
@@ -1243,7 +1731,52 @@ const rawCharacters: RawCharacter[] = [
   },
 ]
 
-export const characters: Character[] = rawCharacters.map((character) => ({
-  ...character,
-  theme: resolveTheme(character),
-}))
+export const characters: Character[] = rawCharacters.map((character) => {
+  const meta = characterMeta[character.slug]
+  const fullName = meta?.fullName ?? character.name
+  const aliases = meta?.aliases ?? []
+  const status = meta?.status ?? (character.faction === "demon" ? "unknown" : "alive")
+  const affiliation = meta?.affiliation ?? defaultAffiliation(character)
+  const threatLevel = meta?.threatLevel ?? defaultThreatLevel(character)
+  const firstAppearance = meta?.firstAppearance ?? "Unknown"
+  const quote = meta?.quote ?? ""
+  const trivia = meta?.trivia ?? []
+  const breathingName = character.power.breathingStyle
+  const bloodName = character.power.bloodDemonArt
+  const technique = breathingName
+    ? {
+        type: "breathing" as const,
+        name: breathingName,
+        nichirinColor: meta?.nichirinColor,
+        forms: character.forms.map((form) => ({
+          title: form.title,
+          description: form.description,
+          bestUse: bestUseFromDifficulty(form.difficulty),
+        })),
+      }
+    : {
+        type: "blood_demon_art" as const,
+        name: bloodName ?? "Blood Demon Art",
+        abilities: character.powerReveal,
+        weaknesses:
+          meta?.weaknesses ??
+          (character.faction === "demon" ? ["Sunlight", "Nichirin blades"] : undefined),
+      }
+  const { power, forms, powerReveal, theme, ...base } = character
+  return {
+    ...base,
+    fullName,
+    aliases,
+    status,
+    affiliation,
+    technique,
+    threatLevel,
+    firstAppearance,
+    quote,
+    trivia,
+    theme: resolveTheme(character),
+  }
+})
+
+export const getCharacterBySlug = (slug: string) =>
+  characters.find((character) => character.slug === slug)

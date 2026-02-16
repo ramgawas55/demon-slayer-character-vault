@@ -1,21 +1,22 @@
 "use client"
 
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
 type GalleryStripProps = {
   images: string[]
 }
 
 export default function GalleryStrip({ images }: GalleryStripProps) {
+  const reduceMotion = useReducedMotion()
+
   return (
     <div className="hide-scrollbar flex gap-4 overflow-x-auto pb-4">
       {images.map((image, index) => (
         <motion.div
           key={`${image}-${index}`}
-          whileHover={{ y: -4 }}
+          whileHover={reduceMotion ? undefined : { y: -2 }}
           className="ds-card relative h-40 w-64 flex-shrink-0 overflow-hidden rounded-2xl"
-          style={{ boxShadow: "0 14px 30px color-mix(in srgb, var(--glow) 35%, transparent)" }}
         >
           <Image
             src={image}
@@ -23,7 +24,7 @@ export default function GalleryStrip({ images }: GalleryStripProps) {
             fill
             className="object-cover object-center"
             sizes="256px"
-            quality={85}
+            quality={92}
             loading="lazy"
           />
         </motion.div>

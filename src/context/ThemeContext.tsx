@@ -10,11 +10,11 @@ type ThemeContextValue = {
 }
 
 const defaultTheme: UniformTheme = {
-  primary: "#a855f7",
-  secondary: "#cbd5f5",
-  accent: "#f97316",
-  background: "#0b1020",
-  glow: "#7dd3fc",
+  primary: "#7c83ff",
+  secondary: "#94a3b8",
+  accent: "#7c83ff",
+  background: "#0e1116",
+  glow: "#7c83ff",
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)

@@ -9,13 +9,14 @@ import FloatingSignature from "../components/FloatingSignature"
 import { ThemeProvider } from "../context/ThemeContext"
 
 const headingFont = Sora({
-  weight: ["500", "600"],
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
 })
 
 const bodyFont = Inter({
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
