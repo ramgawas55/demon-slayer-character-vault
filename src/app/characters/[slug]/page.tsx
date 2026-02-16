@@ -33,7 +33,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (!character) {
     notFound()
   }
-  const index = characters.findIndex((item) => item.slug === character.slug)
+  const index = characters.indexOf(character)
   const prev = index > 0 ? characters[index - 1] : undefined
   const next = index < characters.length - 1 ? characters[index + 1] : undefined
   const showDebug = process.env.NODE_ENV !== "production"
