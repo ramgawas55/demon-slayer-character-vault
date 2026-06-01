@@ -1,3 +1,5 @@
+import { galleryPath, posterPath } from "../lib/imagePath"
+
 export type TechniqueForm = {
   title: string
   description: string
@@ -171,12 +173,17 @@ const resolveTheme = (character: RawCharacter): CharacterTheme => {
   }
 }
 
-const baseGallery = ["/characters/placeholder.svg", "/characters/placeholder.svg", "/characters/placeholder.svg"]
+const baseGallery = ["/characters/placeholder.webp", "/characters/placeholder.webp", "/characters/placeholder.webp"]
 
 const baseImages = {
-  posterUrl: "/characters/placeholder.svg",
+  posterUrl: "/characters/placeholder.webp",
   galleryUrls: baseGallery,
 }
+
+const buildImages = (slug: string) => ({
+  posterUrl: posterPath(slug),
+  galleryUrls: [galleryPath(slug, 1), galleryPath(slug, 2), galleryPath(slug, 3)],
+})
 
 const characterMeta: Record<string, CharacterMeta> = {
   "tanjiro-kamado": {
@@ -642,7 +649,7 @@ const rawCharacters: RawCharacter[] = [
       glow: "#7dd3fc",
     },
     theme: { primaryGlow: "#22d3ee", secondaryGlow: "#f97316" },
-    images: { posterUrl: "/characters/tanjiro-kamado.jpg", galleryUrls: baseGallery },
+    images: baseImages,
   },
   {
     slug: "nezuko-kamado",
@@ -672,10 +679,7 @@ const rawCharacters: RawCharacter[] = [
       glow: "#fb7185",
     },
     theme: { primaryGlow: "#f472b6", secondaryGlow: "#f59e0b" },
-    images: {
-      posterUrl: "/characters/nezuko-kamado.jpg",
-      galleryUrls: baseGallery,
-    },
+    images: baseImages,
   },
   {
     slug: "zenitsu-agatsuma",
@@ -706,10 +710,7 @@ const rawCharacters: RawCharacter[] = [
       glow: "#fde047",
     },
     theme: { primaryGlow: "#facc15", secondaryGlow: "#38bdf8" },
-    images: {
-      posterUrl: "/characters/zenitsu-agatsuma.jpg",
-      galleryUrls: baseGallery,
-    },
+    images: baseImages,
   },
   {
     slug: "inosuke-hashibira",
@@ -740,10 +741,7 @@ const rawCharacters: RawCharacter[] = [
       glow: "#cbd5f5",
     },
     theme: { primaryGlow: "#38bdf8", secondaryGlow: "#a3e635" },
-    images: {
-      posterUrl: "/characters/inosuke-hashibira.jpg",
-      galleryUrls: baseGallery,
-    },
+    images: baseImages,
   },
   {
     slug: "kanao-tsuyuri",
@@ -1762,7 +1760,7 @@ export const characters: Character[] = rawCharacters.map((character) => {
           meta?.weaknesses ??
           (character.faction === "demon" ? ["Sunlight", "Nichirin blades"] : undefined),
       }
-  const { power, forms, powerReveal, theme, ...base } = character
+  const { power, forms, powerReveal, theme, images: _images, ...base } = character
   return {
     ...base,
     fullName,
@@ -1775,6 +1773,7 @@ export const characters: Character[] = rawCharacters.map((character) => {
     quote,
     trivia,
     theme: resolveTheme(character),
+    images: buildImages(character.slug),
   }
 })
 

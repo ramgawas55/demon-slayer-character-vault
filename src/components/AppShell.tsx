@@ -17,6 +17,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <Link href="/" className="ds-logo">
             Demon Slayer Vault
           </Link>
+          <nav className="flex items-center gap-6">
+            <Link href="/upload" className="text-sm font-medium text-white/60 transition hover:text-white">
+              Upload
+            </Link>
+            <Link href="/admin" className="text-sm font-medium text-white/60 transition hover:text-white">
+              Admin
+            </Link>
+          </nav>
         </div>
       </header>
       <AnimatePresence mode="wait">

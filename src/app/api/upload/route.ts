@@ -1,25 +1,53 @@
+import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
-import { put } from "@vercel/blob"
-
-export const runtime = "nodejs"
+import cloudinary from "@/lib/cloudinary"
+import { prisma } from "@/lib/prisma"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 export async function POST(request: Request) {
-  const formData = await request.formData()
-  const file = formData.get("file")
-  const password = formData.get("password")
-  const filename = formData.get("filename")
+  try {
+    const session = await getServerSession(authOptions)
+    const formData = await request.formData()
+    const file = formData.get("file") as File
 
-  const expected = process.env.ADMIN_PASSWORD
-  if (!expected || password !== expected) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!file) {
+      return NextResponse.json({ error: "No file provided" }, { status: 400 })
+    }
+
+    // Convert file to buffer
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+
+    // Upload to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "demon-slayer-uploads",
+            resource_type: "image",
+          },
+          (error: any, result: any) => {
+            if (error) reject(error)
+            else resolve(result)
+          }
+        )
+        .end(buffer)
+    })
+
+    const imageUrl = (uploadResult as any).secure_url
+
+    // Save to database
+    const image = await prisma.image.create({
+      data: {
+        url: imageUrl,
+        uploadedBy: session ? "admin" : "user",
+        approved: !!session, // Auto-approve if admin
+      },
+    })
+
+    return NextResponse.json({ success: true, url: imageUrl, id: image.id })
+  } catch (error) {
+    console.error("Upload error:", error)
+    return NextResponse.json({ error: "Upload failed" }, { status: 500 })
   }
-
-  if (!(file instanceof File)) {
-    return NextResponse.json({ error: "Missing file" }, { status: 400 })
-  }
-
-  const safeName = typeof filename === "string" && filename.length > 0 ? filename : file.name
-  const blob = await put(safeName, file, { access: "public" })
-
-  return NextResponse.json({ url: blob.url })
 }

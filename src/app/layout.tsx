@@ -27,18 +27,22 @@ export const metadata: Metadata = {
   description: "Cinematic Demon Slayer character showcase",
 }
 
+import { Providers } from "../components/Providers"
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${headingFont.variable} ${bodyFont.variable}`}>
-        <ThemeProvider>
-          <AppShell>
-            {children}
-            <CreatorSection />
-            <FooterCredit />
-          </AppShell>
-        </ThemeProvider>
-        <FloatingSignature />
+        <Providers>
+          <ThemeProvider>
+            <AppShell>
+              {children}
+              <CreatorSection />
+              <FooterCredit />
+            </AppShell>
+          </ThemeProvider>
+          <FloatingSignature />
+        </Providers>
       </body>
     </html>
   )

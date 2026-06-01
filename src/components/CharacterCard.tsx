@@ -37,6 +37,8 @@ function CharacterCard({ character }: CharacterCardProps) {
   const [isPopupHover, setIsPopupHover] = useState(false)
   const [popupStyle, setPopupStyle] = useState<{ left: number; top: number; width: number } | null>(null)
   const [popupReady, setPopupReady] = useState(false)
+  const [posterSrc, setPosterSrc] = useState(character.images.posterUrl)
+  const placeholderSrc = "/characters/placeholder.webp"
   const reduceMotion = useReducedMotion()
   const { setTheme } = useTheme()
   const cardRef = useRef<HTMLDivElement | null>(null)
@@ -49,6 +51,23 @@ function CharacterCard({ character }: CharacterCardProps) {
     matcher.addEventListener("change", update)
     return () => matcher.removeEventListener("change", update)
   }, [])
+
+  useEffect(() => {
+    setPosterSrc(character.images.posterUrl)
+  }, [character.images.posterUrl])
+
+  const resolveFallback = useCallback(
+    (src: string) => {
+      if (src.endsWith(".webp")) {
+        return src.replace(".webp", ".jpg")
+      }
+      if (!src.includes("placeholder")) {
+        return placeholderSrc
+      }
+      return placeholderSrc
+    },
+    [placeholderSrc]
+  )
 
   useEffect(() => {
     if (!showReveal) {
@@ -186,13 +205,14 @@ function CharacterCard({ character }: CharacterCardProps) {
             secondary={character.environment.secondary}
           />
           <Image
-            src={character.images.posterUrl}
+            src={posterSrc}
             alt={`${character.name} poster`}
             fill
             className="object-cover object-center"
             sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
             quality={92}
             loading="lazy"
+            onError={() => setPosterSrc((prev) => resolveFallback(prev))}
           />
           <div
             className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -215,6 +235,9 @@ function CharacterCard({ character }: CharacterCardProps) {
               </span>
             ))}
           </div>
+          {process.env.NODE_ENV !== "production" ? (
+            <p className="text-[10px] text-white/50 break-all">{posterSrc}</p>
+          ) : null}
         </div>
       </Link>
       <button

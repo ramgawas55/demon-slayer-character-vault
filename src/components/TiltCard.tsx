@@ -16,6 +16,8 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
   const reduceMotion = useReducedMotion()
   const [isTouch, setIsTouch] = useState(false)
   const [isCompact, setIsCompact] = useState(false)
+  const [imageSrc, setImageSrc] = useState(image)
+  const placeholderSrc = "/characters/placeholder.webp"
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
@@ -39,6 +41,20 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
     window.addEventListener("resize", update)
     return () => window.removeEventListener("resize", update)
   }, [])
+
+  useEffect(() => {
+    setImageSrc(image)
+  }, [image])
+
+  const resolveFallback = (src: string) => {
+    if (src.endsWith(".webp")) {
+      return src.replace(".webp", ".jpg")
+    }
+    if (!src.includes("placeholder")) {
+      return placeholderSrc
+    }
+    return placeholderSrc
+  }
 
   const isInteractive = !reduceMotion && !isTouch && !isCompact
 
@@ -81,7 +97,7 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
         style={{ translateZ: isInteractive ? depth : 0 }}
       >
         <Image
-          src={image}
+          src={imageSrc}
           alt={`${title} poster`}
           width={420}
           height={560}
@@ -89,6 +105,7 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
           className="w-full h-auto object-cover object-center"
           quality={92}
           priority
+          onError={() => setImageSrc((prev) => resolveFallback(prev))}
         />
       </motion.div>
     </motion.div>
