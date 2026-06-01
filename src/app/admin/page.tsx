@@ -77,22 +77,22 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f14] p-6 lg:p-12">
-      <div className="mx-auto max-w-7xl space-y-12">
-        <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-bold tracking-tight text-white">Management Dashboard</h1>
-            <p className="text-white/60">Review and moderate asset submissions.</p>
+    <div className="min-h-screen bg-[#0b0f14] p-4 sm:p-6 lg:p-12">
+      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-12">
+        <header className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-1 text-center lg:text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">Management Dashboard</h1>
+            <p className="text-sm text-white/60">Review and moderate asset submissions.</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2 rounded-2xl bg-white/5 p-1">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex w-full sm:w-auto items-center gap-1 rounded-2xl bg-white/5 p-1 overflow-x-auto hide-scrollbar">
               {["all", "false", "true"].map((val) => (
                 <button
                   key={val}
                   onClick={() => setFilter({ ...filter, approved: val })}
                   className={cn(
-                    "rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-widest transition",
+                    "flex-1 sm:flex-none rounded-xl px-4 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition whitespace-nowrap",
                     filter.approved === val ? "bg-white text-slate-950" : "text-white/40 hover:text-white"
                   )}
                 >
@@ -104,11 +104,11 @@ export default function AdminDashboard() {
         </header>
 
         {isLoading ? (
-          <div className="flex h-96 items-center justify-center">
-            <Loader2 className="animate-spin text-white/20" size={40} />
+          <div className="flex h-64 sm:h-96 items-center justify-center">
+            <Loader2 className="animate-spin text-white/20" size={32} />
           </div>
         ) : images.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {images.map((image) => (
                 <motion.div
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 transition-all hover:border-white/20"
+                  className="group relative flex flex-col overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-white/5 transition-all hover:border-white/20"
                 >
                   <div className="relative aspect-square overflow-hidden bg-slate-900">
                     <Image
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                     
-                    <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="absolute right-3 top-3 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100 z-20">
                       <a
                         href={image.url}
                         target="_blank"
@@ -140,47 +140,47 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <div className="flex flex-1 flex-col justify-between p-6">
+                  <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                     <div className="mb-6 flex items-start justify-between">
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40">
+                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
                           {image.uploadedBy === "admin" ? (
-                            <Shield size={12} className="text-blue-400" />
+                            <Shield size={10} className="text-blue-400" />
                           ) : (
-                            <User size={12} />
+                            <User size={10} />
                           )}
                           {image.uploadedBy}
                         </div>
-                        <p className="text-[10px] text-white/20">
+                        <p className="text-[9px] text-white/20">
                           {new Date(image.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                       <div className={cn(
-                        "rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-tighter",
+                        "rounded-full px-3 py-1 text-[9px] font-black uppercase tracking-tighter",
                         image.approved ? "bg-green-500/20 text-green-500" : "bg-yellow-500/20 text-yellow-500"
                       )}>
                         {image.approved ? "Approved" : "Pending"}
                       </div>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2">
                       <button
                         onClick={() => handleApprove(image.id, image.approved)}
                         className={cn(
-                          "flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-bold uppercase transition",
+                          "ds-button !w-auto flex-1 !py-2.5 !text-[10px]",
                           image.approved 
                             ? "border border-white/10 text-white hover:bg-white/5" 
                             : "bg-green-500 text-slate-950 hover:bg-green-400"
                         )}
                       >
-                        <Check size={16} />
+                        <Check size={14} className="mr-1.5" />
                         {image.approved ? "Unapprove" : "Approve"}
                       </button>
                       <button
                         onClick={() => handleDelete(image.id)}
                         className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/20 text-red-500 transition hover:bg-red-500 hover:text-white"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={14} />
                       </button>
                     </div>
                   </div>

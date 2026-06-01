@@ -61,7 +61,7 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
   return (
     <motion.div
       layoutId={layoutId}
-      className={`ds-card relative rounded-3xl p-3 ${isInteractive ? "card-tilt" : ""} ${className ?? ""}`}
+      className={`ds-card relative rounded-[1.5rem] sm:rounded-3xl p-2 sm:p-3 ${isInteractive ? "card-tilt" : ""} ${className ?? ""}`}
       style={{
         rotateX: isInteractive ? springX : 0,
         rotateY: isInteractive ? springY : 0,
@@ -85,7 +85,7 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
       }}
     >
       <div
-        className="absolute inset-0 rounded-3xl opacity-40"
+        className="absolute inset-0 rounded-[1.5rem] sm:rounded-3xl opacity-40"
         style={{
           background:
             "linear-gradient(140deg, color-mix(in srgb, var(--primary) 45%, transparent), transparent, color-mix(in srgb, var(--secondary) 35%, transparent))",
@@ -93,7 +93,7 @@ export default function TiltCard({ image, title, className, layoutId, imageLayou
       />
       <motion.div
         layoutId={imageLayoutId}
-        className="relative overflow-hidden rounded-2xl"
+        className="relative overflow-hidden rounded-[1rem] sm:rounded-2xl"
         style={{ translateZ: isInteractive ? depth : 0 }}
       >
         <Image

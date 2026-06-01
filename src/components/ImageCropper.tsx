@@ -81,29 +81,29 @@ export default function ImageCropper({ image, onCropComplete, onCancel }: ImageC
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4 sm:p-6"
     >
-      <div className="relative flex h-full max-h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 p-4">
-          <h3 className="text-lg font-semibold text-white">Crop Image</h3>
-          <div className="flex gap-2">
+      <div className="relative flex h-[85vh] max-h-[700px] w-full max-w-2xl flex-col overflow-hidden rounded-[1.5rem] sm:rounded-3xl border border-white/10 bg-slate-900 shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/10 p-4 sm:p-5">
+          <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">Crop Image</h3>
+          <div className="flex gap-1.5 sm:gap-2">
             <button
               onClick={() => setAspect(1 / 1)}
-              className={`rounded-lg p-2 transition ${
+              className={`rounded-xl p-2.5 transition-colors ${
                 aspect === 1 / 1 ? "bg-white/20 text-white" : "text-white/40 hover:text-white"
               }`}
               title="Square (1:1)"
             >
-              <Square size={20} />
+              <Square size={18} />
             </button>
             <button
               onClick={() => setAspect(16 / 9)}
-              className={`rounded-lg p-2 transition ${
+              className={`rounded-xl p-2.5 transition-colors ${
                 aspect === 16 / 9 ? "bg-white/20 text-white" : "text-white/40 hover:text-white"
               }`}
               title="Landscape (16:9)"
             >
-              <ImageIcon size={20} />
+              <ImageIcon size={18} />
             </button>
           </div>
         </div>
@@ -120,9 +120,9 @@ export default function ImageCropper({ image, onCropComplete, onCancel }: ImageC
           />
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-white/10 p-6">
+        <div className="flex flex-col gap-5 border-t border-white/10 p-5 sm:p-6">
           <div className="flex items-center gap-4">
-            <span className="text-xs font-medium uppercase tracking-widest text-white/40">Zoom</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Zoom</span>
             <input
               type="range"
               value={zoom}
@@ -134,18 +134,18 @@ export default function ImageCropper({ image, onCropComplete, onCancel }: ImageC
             />
           </div>
 
-          <div className="flex justify-end gap-3">
+          <div className="flex gap-3">
             <button
               onClick={onCancel}
-              className="flex items-center gap-2 rounded-full border border-white/10 px-6 py-2 text-sm font-medium text-white/60 transition hover:bg-white/5 hover:text-white"
+              className="ds-button ds-button--ghost !w-auto flex-1 !py-3 !text-[11px]"
             >
-              <X size={18} /> Cancel
+              <X size={16} className="mr-2" /> Cancel
             </button>
             <button
               onClick={handleDone}
-              className="flex items-center gap-2 rounded-full bg-white px-6 py-2 text-sm font-medium text-slate-950 transition hover:bg-white/90"
+              className="ds-button !w-auto flex-[2] !py-3 !text-[11px] !bg-white !text-slate-950"
             >
-              <Check size={18} /> Apply Crop
+              <Check size={16} className="mr-2" /> Apply
             </button>
           </div>
         </div>

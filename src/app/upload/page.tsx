@@ -88,16 +88,16 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f14] px-6 py-20 text-white">
-      <div className="mx-auto max-w-2xl">
+    <div className="min-h-screen bg-[#0b0f14] px-4 py-8 sm:px-6 sm:py-20 text-white">
+      <div className="mx-auto w-full max-w-md sm:max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-8"
+          className="space-y-6 sm:space-y-8"
         >
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Upload Asset</h1>
-            <p className="text-white/60">Share your high-quality Demon Slayer artwork.</p>
+          <div className="space-y-2 text-center sm:text-left">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">Upload Asset</h1>
+            <p className="text-sm sm:text-base text-white/60">Share your high-quality Demon Slayer artwork.</p>
           </div>
 
           {!uploadedUrl ? (
@@ -106,7 +106,7 @@ export default function UploadPage() {
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   className={cn(
-                    "group relative flex h-80 cursor-pointer flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-white/10 bg-white/5 transition-all hover:border-white/20 hover:bg-white/[0.07]",
+                    "group relative flex h-64 sm:h-80 cursor-pointer flex-col items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] border-2 border-dashed border-white/10 bg-white/5 transition-all hover:border-white/20 hover:bg-white/[0.07]",
                     isCropping && "pointer-events-none opacity-50"
                   )}
                 >
@@ -117,17 +117,17 @@ export default function UploadPage() {
                     accept="image/*"
                     className="hidden"
                   />
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 transition-transform group-hover:scale-110">
-                    <Upload className="text-white/60" />
+                  <div className="flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl bg-white/5 transition-transform group-hover:scale-110">
+                    <Upload className="text-white/60" size={20} />
                   </div>
-                  <div className="mt-4 text-center">
-                    <p className="text-lg font-medium">Click or drag to upload</p>
-                    <p className="text-sm text-white/40">PNG, JPG or WebP (max 10MB)</p>
+                  <div className="mt-4 text-center px-4">
+                    <p className="text-base sm:text-lg font-medium">Click or drag to upload</p>
+                    <p className="text-xs sm:text-sm text-white/40">PNG, JPG or WebP (max 10MB)</p>
                   </div>
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+                  <div className="relative aspect-square overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-white/5">
                     <Image
                       src={croppedPreview}
                       alt="Preview"
@@ -136,18 +136,18 @@ export default function UploadPage() {
                     />
                     <button
                       onClick={reset}
-                      className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-md transition hover:bg-black/80"
+                      className="absolute right-3 top-3 sm:right-4 sm:top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-md transition hover:bg-black/80 z-20"
                     >
                       <X size={20} />
                     </button>
                   </div>
 
                   {isUploading ? (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between text-sm">
+                    <div className="space-y-4 px-2">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
                         <span className="flex items-center gap-2 text-white/60">
                           <Loader2 className="animate-spin" size={16} />
-                          Uploading to Cloudinary...
+                          Uploading...
                         </span>
                         <span className="font-mono">{uploadProgress}%</span>
                       </div>
@@ -162,7 +162,7 @@ export default function UploadPage() {
                   ) : (
                     <button
                       onClick={handleUpload}
-                      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-white py-4 text-lg font-bold text-slate-950 transition hover:bg-white/90"
+                      className="ds-button relative z-10"
                     >
                       Confirm & Upload
                     </button>
@@ -174,15 +174,15 @@ export default function UploadPage() {
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center"
+              className="rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8 text-center"
             >
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-green-500/20 text-green-500">
-                <CheckCircle2 size={40} />
+              <div className="mx-auto mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl bg-green-500/20 text-green-500">
+                <CheckCircle2 size={32} />
               </div>
-              <h2 className="mb-2 text-2xl font-bold">Upload Successful!</h2>
-              <p className="mb-8 text-white/60">Your image has been saved and is awaiting approval.</p>
+              <h2 className="mb-2 text-xl sm:text-2xl font-bold">Upload Successful!</h2>
+              <p className="mb-8 text-xs sm:text-sm text-white/60">Your image has been saved and is awaiting approval.</p>
               
-              <div className="relative mb-8 aspect-video overflow-hidden rounded-2xl border border-white/10">
+              <div className="relative mb-8 aspect-video overflow-hidden rounded-xl sm:rounded-2xl border border-white/10">
                 <Image
                   src={uploadedUrl}
                   alt="Uploaded"
@@ -193,7 +193,7 @@ export default function UploadPage() {
 
               <button
                 onClick={reset}
-                className="rounded-xl border border-white/10 px-8 py-3 font-medium transition hover:bg-white/5"
+                className="ds-button ds-button--ghost"
               >
                 Upload Another
               </button>

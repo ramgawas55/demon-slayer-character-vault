@@ -147,23 +147,46 @@ h4,
 .ds-logo {
   font-family: var(--font-heading);
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.38em;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
   color: #f8fafc;
+}
+
+@media (min-width: 640px) {
+  .ds-logo {
+    font-size: 0.85rem;
+    letter-spacing: 0.38em;
+  }
 }
 
 .ds-button {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
-  padding: 0.7rem 1.3rem;
+  padding: 0.85rem 1.5rem;
+  width: 100%;
   text-transform: uppercase;
-  font-size: 0.65rem;
-  letter-spacing: 0.24em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   color: #f8fafc;
   background: color-mix(in srgb, var(--bg-base) 85%, transparent);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  transition: border-color 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  touch-action: manipulation;
+}
+
+@media (min-width: 640px) {
+  .ds-button {
+    width: auto;
+    padding: 0.7rem 1.3rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+    border-radius: 10px;
+  }
 }
 
 .ds-button::after {

@@ -41,9 +41,9 @@ export default function Filters({
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 px-1 sm:px-0">
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/60">Faction</p>
+        <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60">Faction</p>
         <div className="flex flex-wrap gap-2">
           {factionFilters.map((filter) => (
             <button
@@ -52,7 +52,7 @@ export default function Filters({
               onClick={() => onFactionChange(filter)}
               data-active={faction === filter}
               aria-pressed={faction === filter}
-              className="ds-chip"
+              className="ds-chip !py-2.5 sm:!py-1.5"
             >
               {filter}
             </button>
@@ -60,7 +60,7 @@ export default function Filters({
         </div>
       </div>
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/60">Rank</p>
+        <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60">Rank</p>
         <div className="flex flex-wrap gap-2">
           {rankFilters.map((filter) => (
             <button
@@ -69,7 +69,7 @@ export default function Filters({
               onClick={() => onRankChange(filter)}
               data-active={rank === filter}
               aria-pressed={rank === filter}
-              className="ds-chip"
+              className="ds-chip !py-2.5 sm:!py-1.5"
             >
               {filter}
             </button>
@@ -77,7 +77,7 @@ export default function Filters({
         </div>
       </div>
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/60">Technique</p>
+        <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60">Technique</p>
         <div className="flex flex-wrap gap-2">
           {techniqueFilters.map((filter) => (
             <button
@@ -86,7 +86,7 @@ export default function Filters({
               onClick={() => onTechniqueChange(filter)}
               data-active={technique === filter}
               aria-pressed={technique === filter}
-              className="ds-chip"
+              className="ds-chip !py-2.5 sm:!py-1.5"
             >
               {filter}
             </button>
@@ -95,18 +95,18 @@ export default function Filters({
       </div>
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/60">Tags</p>
+          <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60">Tags</p>
           {selectedTags.length > 0 ? (
             <button
               type="button"
               onClick={() => onTagChange([])}
-              className="ds-chip text-[10px] tracking-[0.2em]"
+              className="ds-chip !py-1 sm:!py-0.5 text-[9px] sm:text-[10px] tracking-[0.2em]"
             >
               Clear
             </button>
           ) : null}
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto hide-scrollbar pr-2">
           {tags.map((tag) => (
             <button
               key={tag}
@@ -114,7 +114,7 @@ export default function Filters({
               onClick={() => toggleTag(tag)}
               data-active={selectedTags.includes(tag)}
               aria-pressed={selectedTags.includes(tag)}
-              className="ds-chip text-[10px] tracking-[0.2em]"
+              className="ds-chip !py-2.5 sm:!py-1.5 text-[10px] tracking-[0.2em]"
             >
               {tag}
             </button>
@@ -122,7 +122,7 @@ export default function Filters({
         </div>
       </div>
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/60">Sort</p>
+        <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60">Sort</p>
         <div className="flex flex-wrap gap-2">
           {sortOptions.map((option) => (
             <button
@@ -131,7 +131,7 @@ export default function Filters({
               onClick={() => onSortChange(option)}
               data-active={sort === option}
               aria-pressed={sort === option}
-              className="ds-chip"
+              className="ds-chip !py-2.5 sm:!py-1.5"
             >
               {option}
             </button>

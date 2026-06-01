@@ -169,7 +169,7 @@ function CharacterCard({ character }: CharacterCardProps) {
     <motion.div
       layoutId={`card-${character.slug}`}
       ref={cardRef}
-      className="ds-card group relative"
+      className="ds-card group relative h-full flex flex-col"
       style={baseThemeVars as CSSProperties}
       animate={{
         ...animateVars,
@@ -188,7 +188,7 @@ function CharacterCard({ character }: CharacterCardProps) {
     >
       <Link
         href={`/characters/${character.slug}`}
-        className="block h-full"
+        className="flex flex-col h-full"
         onClick={(event) => {
           setTheme(character.uniformTheme)
           if (isTouch && !showReveal) {
@@ -197,7 +197,7 @@ function CharacterCard({ character }: CharacterCardProps) {
           }
         }}
       >
-        <motion.div layoutId={`poster-${character.slug}`} className="relative aspect-[3/4]">
+        <motion.div layoutId={`poster-${character.slug}`} className="relative aspect-[3/4] flex-shrink-0">
           <BreathingAura
             active={showReveal && !isTouch}
             type={character.environment.type}
@@ -221,29 +221,29 @@ function CharacterCard({ character }: CharacterCardProps) {
             }}
           />
         </motion.div>
-        <div className="space-y-2 p-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/60">{character.faction}</p>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-xl font-semibold text-white">{character.name}</h3>
-            <span className="ds-chip">{character.rank}</span>
+        <div className="flex-1 space-y-2 p-4 sm:p-5 flex flex-col">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-white/50">{character.faction}</p>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-primary transition-colors">{character.name}</h3>
+            <span className="ds-chip !py-1 !px-2 !text-[9px]">{character.rank}</span>
           </div>
-          <p className="text-sm uppercase tracking-[0.24em] text-white/65">{techniqueName}</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/60 mb-2">{techniqueName}</p>
+          <div className="mt-auto flex flex-wrap gap-1.5">
             {tagsToShow.map((tag) => (
-              <span key={tag} className="ds-chip text-[10px] tracking-[0.2em] text-white/70">
+              <span key={tag} className="ds-chip !py-0.5 !px-2 !text-[8px] tracking-wider text-white/50">
                 {tag}
               </span>
             ))}
           </div>
           {process.env.NODE_ENV !== "production" ? (
-            <p className="text-[10px] text-white/50 break-all">{posterSrc}</p>
+            <p className="text-[9px] text-white/30 break-all mt-2">{posterSrc}</p>
           ) : null}
         </div>
       </Link>
       <button
         type="button"
         onClick={() => setShowReveal((prev) => !prev)}
-        className="ds-button ds-button--ghost absolute right-3 top-3"
+        className="ds-button ds-button--ghost !w-auto !py-1.5 !px-3 absolute right-3 top-3 z-20 text-[10px] sm:hidden"
         aria-expanded={showReveal}
       >
         Reveal

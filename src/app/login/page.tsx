@@ -43,42 +43,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0b0f14] px-6">
+    <div className="flex min-h-screen items-center justify-center bg-[#0b0f14] px-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-md space-y-8 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-xl sm:p-12"
+        className="w-full max-w-md space-y-8 rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/10 bg-white/5 p-6 sm:p-12 backdrop-blur-xl"
       >
         <div className="text-center">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/5 text-white">
-            <Shield size={40} />
+          <div className="mx-auto mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl sm:rounded-3xl bg-white/5 text-white">
+            <Shield size={32} />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight">Admin Portal</h1>
-          <p className="mt-2 text-white/60 text-sm">Enter your credentials to access the vault.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Admin Portal</h1>
+          <p className="mt-2 text-white/60 text-xs sm:text-sm">Enter your credentials to access the vault.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="Email address"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pl-12 pr-4 text-sm outline-none transition focus:border-white/40 focus:bg-white/10"
+                className="ds-input pl-11"
               />
             </div>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={18} />
               <input
                 type="password"
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 placeholder="Password"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pl-12 pr-4 text-sm outline-none transition focus:border-white/40 focus:bg-white/10"
+                className="ds-input pl-11"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-white py-4 text-sm font-bold text-slate-950 transition hover:bg-white/90 disabled:opacity-50"
+            className="ds-button relative z-10"
           >
             {isLoading ? (
               <Loader2 className="animate-spin" size={20} />

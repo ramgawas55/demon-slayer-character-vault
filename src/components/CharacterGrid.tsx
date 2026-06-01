@@ -13,7 +13,7 @@ export default function CharacterGrid({ characters }: CharacterGridProps) {
 
   return (
     <motion.div
-      className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       initial={reduceMotion ? false : { opacity: 0, y: 12 }}
       animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.4 }}

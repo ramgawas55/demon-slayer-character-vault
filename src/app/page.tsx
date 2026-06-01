@@ -106,27 +106,23 @@ export default function HomePage() {
   }, [query, factionFilter, rankFilter, techniqueFilter, selectedTags, sort, overrides])
 
   return (
-    <div className="relative min-h-screen">
-      <main className="mx-auto flex max-w-7xl flex-col px-6 pb-24 pt-12 md:pt-16 lg:pt-24">
-        <motion.section
-          className="space-y-6"
-          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.45, ease: "easeOut" }}
-        >
-          <p className="text-xs uppercase tracking-[0.4em] text-white/60">
-            Cinematic Character Index
-          </p>
-          <h1 className="text-6xl font-semibold tracking-[0.08em] text-white sm:text-6xl lg:text-7xl">
-            Demon Slayer Character Vault
-          </h1>
-          <p className="max-w-2xl text-base text-white/70 leading-7">
-            Explore the Corps, the Hashira, and the Upper Moons through a cinematic character
-            vault built for clarity and speed.
-          </p>
-        </motion.section>
-        <div className="flex flex-col gap-10 pt-10">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+    <main className="min-h-screen w-full px-4 py-6 sm:px-6 sm:py-12 lg:px-12">
+      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-12">
+        <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+          <div className="space-y-2">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">Character Vault</h1>
+            <p className="text-sm sm:text-base text-white/60">Explore the world of Demon Slayer: Kimetsu no Yaiba.</p>
+          </div>
+          <Link href="/upload" className="ds-button !w-full sm:!w-auto bg-primary/10 hover:bg-primary/20 border-primary/30 group">
+            <span className="flex items-center gap-2">
+              <span className="text-primary group-hover:scale-110 transition-transform">✦</span>
+              Upload New Asset
+            </span>
+          </Link>
+        </header>
+
+        <div className="flex flex-col gap-8 lg:flex-row">
+          <aside className="w-full lg:w-72 flex-shrink-0 space-y-8">
             <SearchBar value={query} onChange={setQuery} />
             <Filters
               faction={factionFilter}
@@ -141,10 +137,13 @@ export default function HomePage() {
               onSortChange={setSort}
               onTagChange={setSelectedTags}
             />
+          </aside>
+
+          <div className="flex-1">
+            <CharacterGrid characters={filtered} />
           </div>
-          <CharacterGrid characters={filtered} />
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }

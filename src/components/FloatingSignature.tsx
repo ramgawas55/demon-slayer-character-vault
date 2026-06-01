@@ -47,7 +47,10 @@ export default function FloatingSignature() {
     <>
       <motion.button
         type="button"
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/8 px-3 py-2 text-[11px] uppercase tracking-[0.3em] text-white/70 max-sm:bottom-3 max-sm:right-3"
+        onClick={() => {
+          window.location.href = "/admin"
+        }}
+        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/8 px-3 py-2 text-[11px] uppercase tracking-[0.3em] text-white/70 max-sm:bottom-3 max-sm:right-3 transition-colors hover:bg-white/15"
         animate={{ width: expanded ? 190 : 46 }}
         transition={signatureTransition}
         onMouseEnter={() => setExpanded(true)}
