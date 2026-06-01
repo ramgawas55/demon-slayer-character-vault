@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, Trash2, Filter, User, Shield, ExternalLink, Loader2, Image as ImageIcon } from "lucide-react"
 import Image from "next/image"
@@ -23,7 +23,7 @@ export default function AdminDashboard() {
     uploadedBy: "all", // "all", "user", "admin"
   })
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     setIsLoading(true)
     try {
       const params = new URLSearchParams()
@@ -38,11 +38,11 @@ export default function AdminDashboard() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [filter.approved, filter.uploadedBy])
 
   useEffect(() => {
     fetchImages()
-  }, [filter])
+  }, [fetchImages])
 
   const handleApprove = async (id: string, currentStatus: boolean) => {
     try {

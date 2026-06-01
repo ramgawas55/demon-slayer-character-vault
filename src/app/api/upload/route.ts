@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 import cloudinary from "@/lib/cloudinary"
 import { prisma } from "@/lib/prisma"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 
 export async function POST(request: Request) {
   try {
