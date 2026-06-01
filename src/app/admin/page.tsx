@@ -42,7 +42,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchImages()
-  }, [fetchImages])
+  }, [filter.approved, filter.uploadedBy, fetchImages])
 
   const handleApprove = async (id: string, currentStatus: boolean) => {
     try {
