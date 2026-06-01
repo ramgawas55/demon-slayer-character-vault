@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
 import CharacterGrid from "../components/CharacterGrid"
 import Filters from "../components/Filters"
 import SearchBar from "../components/SearchBar"
