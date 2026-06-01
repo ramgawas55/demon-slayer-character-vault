@@ -1,12 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Character } from "../data/characters"
 import { useTheme } from "../context/ThemeContext"
 import TiltCard from "./TiltCard"
 import GalleryStrip from "./GalleryStrip"
+import { cn } from "@/lib/utils"
 
 type CharacterDetailProps = {
   character: Character
